@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -98,6 +95,8 @@ public class AccountService {
 
         List<AccountDetail> details = accountDetailRepository.fetchDetailsForAccount(account.getAccountNumber());
         if (!details.isEmpty()) {
+            details.sort(Comparator.comparing(AccountDetail::getYear).thenComparing(AccountDetail::getMonthNumber));
+            Collections.reverse(details);
             accountDto.setAccountDetails(
                     details.stream().map(this::convertToAccountDetailDto).collect(Collectors.toList())
             );
