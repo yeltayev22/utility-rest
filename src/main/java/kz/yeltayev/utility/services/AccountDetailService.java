@@ -50,9 +50,7 @@ public class AccountDetailService {
         AccountDetail accountDetail = accountDetailRepository.findById(accountDetailId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account not found for this id : " + accountDetailId));
 
-        accountDetail.setAccount(accountDetail.getAccount());
         accountDetail.setCounter(accountDetails.getCounter());
-        accountDetail.setMonthNumber(accountDetails.getMonthNumber());
 
         AccountDetail updatedAccountDetail = accountDetailRepository.save(accountDetail);
         return convertToDto(updatedAccountDetail);
@@ -79,7 +77,9 @@ public class AccountDetailService {
     private AccountDetailDto convertToDto(AccountDetail accountDetail) {
         AccountDetailDto accountDetailDto = modelMapper.map(accountDetail, AccountDetailDto.class);
 
+        accountDetailDto.setId(accountDetail.getId());
         accountDetailDto.setMonthNumber(accountDetail.getMonthNumber());
+        accountDetailDto.setYear(accountDetail.getYear());
         accountDetailDto.setCounter(accountDetail.getCounter());
 
         return accountDetailDto;

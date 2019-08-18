@@ -111,7 +111,9 @@ public class AccountService {
     private AccountDetailDto convertToAccountDetailDto(AccountDetail accountDetail) {
         AccountDetailDto accountDetailDto = modelMapper.map(accountDetail, AccountDetailDto.class);
 
+        accountDetailDto.setId(accountDetail.getId());
         accountDetailDto.setMonthNumber(accountDetail.getMonthNumber());
+        accountDetailDto.setYear(accountDetail.getYear());
         accountDetailDto.setCounter(accountDetail.getCounter());
 
         return accountDetailDto;

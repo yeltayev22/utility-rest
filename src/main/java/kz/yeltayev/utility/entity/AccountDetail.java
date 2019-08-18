@@ -18,6 +18,9 @@ public class AccountDetail {
     @Column(name = "month_number")
     private int monthNumber;
 
+    @Column(name = "year")
+    private int year;
+
     @Column(name = "counter")
     private BigDecimal counter;
 
