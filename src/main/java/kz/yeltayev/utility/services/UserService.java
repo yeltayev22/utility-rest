@@ -70,12 +70,14 @@ public class UserService {
         return response;
     }
 
-    public UserDto authorization(AuthRequest authRequest) {
-        User user = userRepository.findUserByUsername(authRequest.getUsername());
-        if (user != null && user.getPassword().compareTo(authRequest.getPassword()) == 0) {
-            return convertToDto(user);
+    @Transactional
+    public UserDto auth(AuthRequest auth) {
+        User serverUser = userRepository.findUserByLogin(auth.getLogin());
+        if (serverUser != null && serverUser.getPassword().equals(auth.getPassword())) {
+            return convertToDto(serverUser);
+        } else {
+            return null;
         }
-        return null;
     }
 
     private List<UserDto> convertToListUserDto(List<User> users) {

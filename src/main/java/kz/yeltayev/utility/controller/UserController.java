@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.ws.rs.POST;
 import java.util.List;
 import java.util.Map;
 
@@ -53,8 +54,8 @@ public class UserController {
         return userService.deleteUser(userId);
     }
 
-    @GetMapping("/users/auth")
-    public UserDto authorization(@Valid @RequestBody AuthRequest authRequest) {
-        return userService.authorization(authRequest);
+    @PostMapping("/users/auth")
+    public UserDto auth(@Valid @RequestBody AuthRequest authRequest) {
+        return userService.auth(authRequest);
     }
 }
