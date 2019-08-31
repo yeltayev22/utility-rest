@@ -28,6 +28,10 @@ public class Account {
     @JoinColumn(name = "street_id", nullable = false)
     private Street street;
 
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private Service service;
+
     @OneToMany(mappedBy = "account", targetEntity = AccountDetail.class)
     private List<AccountDetail> accountDetails;
 }

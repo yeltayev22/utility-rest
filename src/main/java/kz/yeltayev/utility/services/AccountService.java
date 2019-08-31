@@ -91,7 +91,11 @@ public class AccountService {
     private AccountDto convertToDto(Account account) {
         AccountDto accountDto = modelMapper.map(account, AccountDto.class);
 
+        accountDto.setStreetId(account.getStreet().getId());
         accountDto.setStreetName(account.getStreet().getStreetName());
+
+        accountDto.setServiceId(account.getService().getId());
+        accountDto.setServiceName(account.getService().getServiceName());
 
         List<AccountDetail> details = accountDetailRepository.fetchDetailsForAccount(account.getAccountNumber());
         if (!details.isEmpty()) {
