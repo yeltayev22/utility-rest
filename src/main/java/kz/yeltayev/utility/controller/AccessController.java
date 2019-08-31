@@ -34,8 +34,8 @@ public class AccessController {
     }
 
     @PostMapping("/accesses")
-    public AccessDto addAccess(@Valid @RequestBody Access access) throws ResourceNotFoundException {
-        return accessService.addAccess(access);
+    public void addAccesses(@Valid @RequestBody List<Access> accesses) {
+        accessService.addAccesses(accesses);
     }
 
     @PutMapping("/accesses/{id}")

@@ -43,8 +43,10 @@ public class AccessService {
     }
 
     @Transactional
-    public AccessDto addAccess(Access access) throws ResourceNotFoundException {
-        return convertToDto(accessRepository.save(access));
+    public void addAccesses(List<Access> accesses) {
+        for (Access access : accesses) {
+            accessRepository.save(access);
+        }
     }
 
     @Transactional

@@ -1,6 +1,5 @@
 package kz.yeltayev.utility.entity;
 
-
 import lombok.Data;
 
 import javax.persistence.*;

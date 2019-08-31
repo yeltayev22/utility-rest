@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public UserDto addUser(@Valid @RequestBody User user) {
+    public User addUser(@Valid @RequestBody User user) {
         return userService.addUser(user);
     }
 

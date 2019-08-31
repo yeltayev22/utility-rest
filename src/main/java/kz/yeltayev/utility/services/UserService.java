@@ -30,8 +30,8 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto addUser(User user) {
-        return convertToDto(userRepository.save(user));
+    public User addUser(User user) {
+        return userRepository.save(user);
     }
 
     @Transactional
