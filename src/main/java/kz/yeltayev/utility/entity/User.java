@@ -27,6 +27,9 @@ public class User {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "owner")
+    private String owner;
+
     @OneToMany(mappedBy = "user")
     private List<Access> accesses;
 }

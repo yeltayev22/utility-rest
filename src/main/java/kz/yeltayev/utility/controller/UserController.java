@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.ws.rs.POST;
+import javax.ws.rs.QueryParam;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +28,11 @@ public class UserController {
     @GetMapping("/users")
     public List<UserDto> fetchUsers() {
         return userService.fetchUsers();
+    }
+
+    @GetMapping("/users/owner/{owner}")
+    public List<UserDto> fetchUsersByOwner(@PathVariable(value = "owner") String owner) {
+        return userService.fetchUsersByOwner(owner);
     }
 
     @GetMapping("/users/{id}")

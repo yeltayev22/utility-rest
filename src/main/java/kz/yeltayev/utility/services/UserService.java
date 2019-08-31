@@ -41,6 +41,12 @@ public class UserService {
     }
 
     @Transactional
+    public List<UserDto> fetchUsersByOwner(String owner) {
+        List<User> users = userRepository.findUsersByOwner(owner);
+        return convertToListUserDto(users);
+    }
+
+    @Transactional
     public UserDto fetchUserById(Long UserId) throws ResourceNotFoundException {
         return convertToDto(userRepository.findById(UserId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id : " + UserId)));
