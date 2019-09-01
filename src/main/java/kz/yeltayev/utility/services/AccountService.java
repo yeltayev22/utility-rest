@@ -3,6 +3,7 @@ package kz.yeltayev.utility.services;
 import kz.yeltayev.utility.dto.AccountDetailDto;
 import kz.yeltayev.utility.dto.AccountDto;
 import kz.yeltayev.utility.entity.AccountDetail;
+import kz.yeltayev.utility.entity.Street;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
 import kz.yeltayev.utility.entity.Account;
 import kz.yeltayev.utility.repository.AccountDetailRepository;
@@ -91,12 +92,14 @@ public class AccountService {
     private AccountDto convertToDto(Account account) {
         AccountDto accountDto = modelMapper.map(account, AccountDto.class);
 
-        accountDto.setStreetId(account.getStreet().getId());
-        accountDto.setStreetName(account.getStreet().getStreetName());
+        Street street = account.getStreet();
+        accountDto.setStreetId(street.getId());
+        accountDto.setStreetName(street.getStreetName());
 
-        accountDto.setServiceId(account.getService().getId());
-        accountDto.setServiceName(account.getService().getServiceName());
-
+        /*kz.yeltayev.utility.entity.Service service = account.getService();
+        accountDto.setServiceId(service.getId());
+        accountDto.setServiceName(service.getServiceName());
+*/
         List<AccountDetail> details = accountDetailRepository.fetchDetailsForAccount(account.getAccountNumber());
         if (!details.isEmpty()) {
             details.sort(Comparator.comparing(AccountDetail::getYear).thenComparing(AccountDetail::getMonthNumber));

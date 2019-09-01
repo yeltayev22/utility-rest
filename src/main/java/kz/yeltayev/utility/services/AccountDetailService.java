@@ -29,7 +29,7 @@ public class AccountDetailService {
     }
 
     @Transactional
-    public AccountDetailDto addAccountDetail(AccountDetail accountDetail) throws ResourceNotFoundException {
+    public AccountDetailDto addAccountDetail(AccountDetail accountDetail) {
         return convertToDto(accountDetailRepository.save(accountDetail));
     }
 

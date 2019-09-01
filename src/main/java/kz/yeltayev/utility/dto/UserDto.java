@@ -11,5 +11,6 @@ public class UserDto {
     private String login;
     private String type;
     private String owner;
+    private String password;
     private List<AccessDto> accesses;
 }

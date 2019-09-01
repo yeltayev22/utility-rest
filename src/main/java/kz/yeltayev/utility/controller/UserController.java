@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.ws.rs.QueryParam;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User addUser(@Valid @RequestBody User user) {
+    public UserDto addUser(@Valid @RequestBody User user) {
         return userService.addUser(user);
     }
 

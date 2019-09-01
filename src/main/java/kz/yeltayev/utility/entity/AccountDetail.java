@@ -24,7 +24,7 @@ public class AccountDetail {
     @Column(name = "counter")
     private BigDecimal counter;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_number", nullable = false)
     private Account account;
 }

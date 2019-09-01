@@ -24,13 +24,13 @@ public class Account {
     @Column(name = "address")
     private String address;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "street_id", nullable = false)
     private Street street;
 
-    @ManyToOne
+/*    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
-    private Service service;
+    private Service service;*/
 
     @OneToMany(mappedBy = "account", targetEntity = AccountDetail.class)
     private List<AccountDetail> accountDetails;
