@@ -28,9 +28,9 @@ public class Account {
     @JoinColumn(name = "street_id", nullable = false)
     private Street street;
 
-/*    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
-    private Service service;*/
+    private Service service;
 
     @OneToMany(mappedBy = "account", targetEntity = AccountDetail.class)
     private List<AccountDetail> accountDetails;

@@ -96,10 +96,10 @@ public class AccountService {
         accountDto.setStreetId(street.getId());
         accountDto.setStreetName(street.getStreetName());
 
-        /*kz.yeltayev.utility.entity.Service service = account.getService();
+        kz.yeltayev.utility.entity.Service service = account.getService();
         accountDto.setServiceId(service.getId());
         accountDto.setServiceName(service.getServiceName());
-*/
+
         List<AccountDetail> details = accountDetailRepository.fetchDetailsForAccount(account.getAccountNumber());
         if (!details.isEmpty()) {
             details.sort(Comparator.comparing(AccountDetail::getYear).thenComparing(AccountDetail::getMonthNumber));

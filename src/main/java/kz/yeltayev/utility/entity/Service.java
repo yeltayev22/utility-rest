@@ -20,7 +20,7 @@ public class Service {
 
     @OneToMany(mappedBy = "service")
     private List<Access> accesses;
-/*
-    @OneToMany(mappedBy = "service")
-    private List<Account> accounts;*/
+
+    @OneToMany(mappedBy = "service", targetEntity = Account.class)
+    private List<Account> accounts;
 }
