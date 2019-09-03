@@ -1,4 +1,4 @@
-package kz.yeltayev.utility.entity;
+package kz.yeltayev.utility.model.entity;
 
 import lombok.Data;
 
@@ -11,16 +11,16 @@ public class Access {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "street_id")
-    private Street street;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "street_id")
+//    private Street street;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")

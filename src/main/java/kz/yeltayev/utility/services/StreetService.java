@@ -1,9 +1,9 @@
 package kz.yeltayev.utility.services;
 
-import kz.yeltayev.utility.dto.AccountDto;
-import kz.yeltayev.utility.dto.StreetDto;
-import kz.yeltayev.utility.entity.Account;
-import kz.yeltayev.utility.entity.Street;
+import kz.yeltayev.utility.model.dto.AccountDto;
+import kz.yeltayev.utility.model.dto.StreetDto;
+import kz.yeltayev.utility.model.entity.Account;
+import kz.yeltayev.utility.model.entity.Street;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
 import kz.yeltayev.utility.repository.StreetRepository;
 import org.modelmapper.ModelMapper;

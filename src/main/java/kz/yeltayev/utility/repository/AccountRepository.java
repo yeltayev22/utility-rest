@@ -1,6 +1,6 @@
 package kz.yeltayev.utility.repository;
 
-import kz.yeltayev.utility.entity.Account;
+import kz.yeltayev.utility.model.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

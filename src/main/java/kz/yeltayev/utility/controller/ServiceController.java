@@ -1,7 +1,7 @@
 package kz.yeltayev.utility.controller;
 
-import kz.yeltayev.utility.dto.ServiceDto;
-import kz.yeltayev.utility.entity.Service;
+import kz.yeltayev.utility.model.dto.ServiceDto;
+import kz.yeltayev.utility.model.entity.Service;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
 import kz.yeltayev.utility.services.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;

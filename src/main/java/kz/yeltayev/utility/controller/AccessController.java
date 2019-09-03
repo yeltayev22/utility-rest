@@ -1,7 +1,8 @@
 package kz.yeltayev.utility.controller;
 
-import kz.yeltayev.utility.dto.AccessDto;
-import kz.yeltayev.utility.entity.Access;
+import kz.yeltayev.utility.model.dto.AccessDto;
+import kz.yeltayev.utility.model.entity.Access;
+import kz.yeltayev.utility.model.request.AccessRequest;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
 import kz.yeltayev.utility.services.AccessService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class AccessController {
     }
 
     @PostMapping("/accesses")
-    public void addAccesses(@Valid @RequestBody List<Access> accesses) {
+    public void addAccesses(@Valid @RequestBody List<AccessRequest> accesses) throws ResourceNotFoundException {
         accessService.addAccesses(accesses);
     }
 

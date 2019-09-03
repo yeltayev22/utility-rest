@@ -1,11 +1,11 @@
 package kz.yeltayev.utility.services;
 
-import kz.yeltayev.utility.dto.AccountDetailDto;
-import kz.yeltayev.utility.dto.AccountDto;
-import kz.yeltayev.utility.entity.AccountDetail;
-import kz.yeltayev.utility.entity.Street;
+import kz.yeltayev.utility.model.dto.AccountDetailDto;
+import kz.yeltayev.utility.model.dto.AccountDto;
+import kz.yeltayev.utility.model.entity.AccountDetail;
+import kz.yeltayev.utility.model.entity.Street;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
-import kz.yeltayev.utility.entity.Account;
+import kz.yeltayev.utility.model.entity.Account;
 import kz.yeltayev.utility.repository.AccountDetailRepository;
 import kz.yeltayev.utility.repository.AccountRepository;
 import org.modelmapper.ModelMapper;
@@ -96,7 +96,7 @@ public class AccountService {
         accountDto.setStreetId(street.getId());
         accountDto.setStreetName(street.getStreetName());
 
-        kz.yeltayev.utility.entity.Service service = account.getService();
+        kz.yeltayev.utility.model.entity.Service service = account.getService();
         accountDto.setServiceId(service.getId());
         accountDto.setServiceName(service.getServiceName());
 

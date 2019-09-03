@@ -1,6 +1,6 @@
 package kz.yeltayev.utility.services;
 
-import kz.yeltayev.utility.dto.ServiceDto;
+import kz.yeltayev.utility.model.dto.ServiceDto;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
 import kz.yeltayev.utility.repository.ServiceRepository;
 import org.modelmapper.ModelMapper;
@@ -27,13 +27,13 @@ public class ServiceService {
     }
 
     @Transactional
-    public ServiceDto addService(kz.yeltayev.utility.entity.Service service) {
+    public ServiceDto addService(kz.yeltayev.utility.model.entity.Service service) {
         return convertToDto(serviceRepository.save(service));
     }
 
     @Transactional
     public List<ServiceDto> fetchServices() {
-        List<kz.yeltayev.utility.entity.Service> services = serviceRepository.findAll();
+        List<kz.yeltayev.utility.model.entity.Service> services = serviceRepository.findAll();
         return convertToListServiceDto(services);
     }
 
@@ -44,19 +44,19 @@ public class ServiceService {
     }
 
     @Transactional
-    public ServiceDto updateService(Long serviceId, kz.yeltayev.utility.entity.Service serviceDetails) throws ResourceNotFoundException {
-        kz.yeltayev.utility.entity.Service service = serviceRepository.findById(serviceId)
+    public ServiceDto updateService(Long serviceId, kz.yeltayev.utility.model.entity.Service serviceDetails) throws ResourceNotFoundException {
+        kz.yeltayev.utility.model.entity.Service service = serviceRepository.findById(serviceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Service not found for this id : " + serviceId));
 
         service.setServiceName(serviceDetails.getServiceName());
 
-        kz.yeltayev.utility.entity.Service updatedService = serviceRepository.save(service);
+        kz.yeltayev.utility.model.entity.Service updatedService = serviceRepository.save(service);
         return convertToDto(updatedService);
     }
 
     @Transactional
     public Map<String, Boolean> deleteService(Long serviceId) throws ResourceNotFoundException {
-        kz.yeltayev.utility.entity.Service service = serviceRepository.findById(serviceId)
+        kz.yeltayev.utility.model.entity.Service service = serviceRepository.findById(serviceId)
                 .orElseThrow(() -> new ResourceNotFoundException("Service not found for this id : " + serviceId));
 
         serviceRepository.delete(service);
@@ -65,13 +65,13 @@ public class ServiceService {
         return response;
     }
 
-    private List<ServiceDto> convertToListServiceDto(List<kz.yeltayev.utility.entity.Service> services) {
+    private List<ServiceDto> convertToListServiceDto(List<kz.yeltayev.utility.model.entity.Service> services) {
         if (services.isEmpty())
             return new ArrayList<>();
         return services.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    private ServiceDto convertToDto(kz.yeltayev.utility.entity.Service service) {
+    private ServiceDto convertToDto(kz.yeltayev.utility.model.entity.Service service) {
         ServiceDto serviceDto = modelMapper.map(service, ServiceDto.class);
         return serviceDto;
     }

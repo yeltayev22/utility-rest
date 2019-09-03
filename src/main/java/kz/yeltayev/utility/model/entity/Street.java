@@ -1,4 +1,4 @@
-package kz.yeltayev.utility.entity;
+package kz.yeltayev.utility.model.entity;
 
 import lombok.Data;
 
@@ -21,6 +21,6 @@ public class Street {
     @OneToMany(mappedBy = "street", targetEntity = Account.class)
     private List<Account> accounts;
 
-    @OneToMany(mappedBy = "street", targetEntity = Access.class)
-    private List<Access> accesses;
+//    @OneToMany(mappedBy = "street", targetEntity = Access.class)
+//    private List<Access> accesses;
 }

@@ -1,10 +1,10 @@
 package kz.yeltayev.utility.services;
 
-import kz.yeltayev.utility.dto.AccessDto;
-import kz.yeltayev.utility.entity.Access;
-import kz.yeltayev.utility.entity.Street;
-import kz.yeltayev.utility.entity.User;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
+import kz.yeltayev.utility.model.dto.AccessDto;
+import kz.yeltayev.utility.model.entity.Access;
+import kz.yeltayev.utility.model.entity.User;
+import kz.yeltayev.utility.model.request.AccessRequest;
 import kz.yeltayev.utility.repository.AccessRepository;
 import kz.yeltayev.utility.repository.ServiceRepository;
 import kz.yeltayev.utility.repository.StreetRepository;
@@ -43,9 +43,23 @@ public class AccessService {
     }
 
     @Transactional
-    public void addAccesses(List<Access> accesses) {
-        for (Access access : accesses) {
-            accessRepository.save(access);
+    public void addAccesses(List<AccessRequest> accesses) throws ResourceNotFoundException {
+        for (AccessRequest access : accesses) {
+            List<Access> existingAccesses = accessRepository.findAccessesByUser_Id(access.getUserId());
+            for (Access existingAccess : existingAccesses) {
+                accessRepository.delete(existingAccess);
+            }
+        }
+        for (AccessRequest access : accesses) {
+            User user = userRepository.findById(access.getUserId())
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found for this id : " + access.getUserId()));
+            kz.yeltayev.utility.model.entity.Service service = serviceRepository.findById(access.getServiceId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Service not found for this id : " + access.getServiceId()));
+            Access newAccess = new Access();
+
+            newAccess.setUser(user);
+            newAccess.setService(service);
+            accessRepository.save(newAccess);
         }
     }
 
@@ -67,7 +81,7 @@ public class AccessService {
                 .orElseThrow(() -> new ResourceNotFoundException("Access not found for this id : " + accessId));
 
         access.setUser(accessDetails.getUser());
-        access.setStreet(accessDetails.getStreet());
+//        access.setStreet(accessDetails.getStreet());
         access.setService(accessDetails.getService());
 
         Access updatedAccess = accessRepository.save(access);
@@ -104,13 +118,13 @@ public class AccessService {
 
         User user = userRepository.findById(access.getUser().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id : " + access.getUser().getId()));
-        Street street = streetRepository.findById(access.getStreet().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Street not found for this id : " + access.getStreet().getId()));
-        kz.yeltayev.utility.entity.Service service = serviceRepository.findById(access.getService().getId())
+//        Street street = streetRepository.findById(access.getStreet().getId())
+//                .orElseThrow(() -> new ResourceNotFoundException("Street not found for this id : " + access.getStreet().getId()));
+        kz.yeltayev.utility.model.entity.Service service = serviceRepository.findById(access.getService().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Service not found for this id : " + access.getService().getClass()));
 
-        accessDto.setStreetId(street.getId());
-        accessDto.setStreetName(street.getStreetName());
+//        accessDto.setStreetId(street.getId());
+//        accessDto.setStreetName(street.getStreetName());
 
         accessDto.setServiceId(service.getId());
         accessDto.setServiceName(service.getServiceName());

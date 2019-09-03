@@ -1,4 +1,4 @@
-package kz.yeltayev.utility.dto;
+package kz.yeltayev.utility.model.dto;
 
 import lombok.Data;
 

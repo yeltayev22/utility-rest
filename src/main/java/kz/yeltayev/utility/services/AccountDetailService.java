@@ -1,7 +1,7 @@
 package kz.yeltayev.utility.services;
 
-import kz.yeltayev.utility.dto.AccountDetailDto;
-import kz.yeltayev.utility.entity.AccountDetail;
+import kz.yeltayev.utility.model.dto.AccountDetailDto;
+import kz.yeltayev.utility.model.entity.AccountDetail;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
 import kz.yeltayev.utility.repository.AccountDetailRepository;
 import org.modelmapper.ModelMapper;

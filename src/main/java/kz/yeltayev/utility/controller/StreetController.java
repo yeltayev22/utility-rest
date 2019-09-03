@@ -1,7 +1,7 @@
 package kz.yeltayev.utility.controller;
 
-import kz.yeltayev.utility.dto.StreetDto;
-import kz.yeltayev.utility.entity.Street;
+import kz.yeltayev.utility.model.dto.StreetDto;
+import kz.yeltayev.utility.model.entity.Street;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
 import kz.yeltayev.utility.services.StreetService;
 import org.springframework.beans.factory.annotation.Autowired;

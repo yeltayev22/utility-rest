@@ -1,8 +1,8 @@
 package kz.yeltayev.utility.controller;
 
-import kz.yeltayev.utility.dto.AccountDto;
+import kz.yeltayev.utility.model.dto.AccountDto;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
-import kz.yeltayev.utility.entity.Account;
+import kz.yeltayev.utility.model.entity.Account;
 import kz.yeltayev.utility.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

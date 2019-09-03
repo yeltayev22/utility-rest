@@ -1,4 +1,4 @@
-package kz.yeltayev.utility.entity;
+package kz.yeltayev.utility.model.entity;
 
 import lombok.Data;
 
