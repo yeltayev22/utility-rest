@@ -39,7 +39,7 @@ public class AccountController {
         return accountService.findAccounts(query);
     }
 
-    @GetMapping("/accounts/{serviceId}")
+    @GetMapping("/accounts/search/{serviceId}")
     public List<AccountDto> findAccountsByServiceId(@PathVariable(value = "serviceId") Long serviceId) {
         return accountService.findAccountsByServiceId(serviceId);
     }
