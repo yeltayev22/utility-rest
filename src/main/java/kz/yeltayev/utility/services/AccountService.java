@@ -52,6 +52,12 @@ public class AccountService {
     }
 
     @Transactional
+    public List<AccountDto> findAccountsByServiceId(Long serviceId) {
+        List<Account> accounts = accountRepository.findAccountsByService_Id(serviceId);
+        return convertToListAccountDto(accounts);
+    }
+
+    @Transactional
     public AccountDto fetchAccountById(Long accountId) throws ResourceNotFoundException {
         return convertToDto(accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account not found for this id : " + accountId)));

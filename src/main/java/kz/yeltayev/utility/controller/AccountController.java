@@ -39,6 +39,11 @@ public class AccountController {
         return accountService.findAccounts(query);
     }
 
+    @GetMapping("/accounts/{serviceId}")
+    public List<AccountDto> findAccountsByServiceId(@PathVariable(value = "serviceId") Long serviceId) {
+        return accountService.findAccountsByServiceId(serviceId);
+    }
+
     @PostMapping("/accounts")
     public AccountDto addAccount(@Valid @RequestBody Account account) {
         return accountService.addAccount(account);

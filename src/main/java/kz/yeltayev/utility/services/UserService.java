@@ -1,9 +1,11 @@
 package kz.yeltayev.utility.services;
 
 import kz.yeltayev.utility.model.dto.UserDto;
+import kz.yeltayev.utility.model.entity.Access;
 import kz.yeltayev.utility.model.request.AuthRequest;
 import kz.yeltayev.utility.model.entity.User;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
+import kz.yeltayev.utility.repository.AccessRepository;
 import kz.yeltayev.utility.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,12 @@ public class UserService {
     private ModelMapper modelMapper;
 
     private UserRepository userRepository;
+    private AccessRepository accessRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, AccessRepository accessRepository) {
         this.userRepository = userRepository;
+        this.accessRepository = accessRepository;
     }
 
     @Transactional
@@ -69,6 +73,11 @@ public class UserService {
     public Map<String, Boolean> deleteUser(Long userId) throws ResourceNotFoundException {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id : " + userId));
+
+        List<Access> accesses = accessRepository.findAccessesByUser_Id(userId);
+        for (Access access : accesses) {
+            accessRepository.delete(access);
+        }
 
         userRepository.delete(user);
         Map<String, Boolean> response = new HashMap<>();
