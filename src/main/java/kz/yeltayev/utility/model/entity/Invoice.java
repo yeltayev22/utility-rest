@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 public class Invoice {
 
     @Id
-    @Column(name = "counter_number")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "counter_number")
     private Long counterNumber;
 
     @Column(name = "month_1")

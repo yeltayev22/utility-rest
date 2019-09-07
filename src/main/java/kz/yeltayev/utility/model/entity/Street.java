@@ -20,7 +20,4 @@ public class Street {
 
     @OneToMany(mappedBy = "street", targetEntity = Account.class)
     private List<Account> accounts;
-
-//    @OneToMany(mappedBy = "street", targetEntity = Access.class)
-//    private List<Access> accesses;
 }

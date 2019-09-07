@@ -1,13 +1,13 @@
 package kz.yeltayev.utility.services;
 
-import kz.yeltayev.utility.model.dto.AccountDetailDto;
 import kz.yeltayev.utility.model.dto.AccountDto;
-import kz.yeltayev.utility.model.entity.AccountDetail;
+import kz.yeltayev.utility.model.dto.InvoiceDto;
+import kz.yeltayev.utility.model.entity.Invoice;
 import kz.yeltayev.utility.model.entity.Street;
 import kz.yeltayev.utility.exception.ResourceNotFoundException;
 import kz.yeltayev.utility.model.entity.Account;
-import kz.yeltayev.utility.repository.AccountDetailRepository;
 import kz.yeltayev.utility.repository.AccountRepository;
+import kz.yeltayev.utility.repository.InvoiceRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class AccountService {
 
     private AccountRepository accountRepository;
-    private AccountDetailRepository accountDetailRepository;
+    private InvoiceRepository invoiceRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -28,10 +28,10 @@ public class AccountService {
     @Autowired
     public AccountService(
             AccountRepository accountRepository,
-            AccountDetailRepository accountDetailRepository
+            InvoiceRepository invoiceRepository
     ) {
         this.accountRepository = accountRepository;
-        this.accountDetailRepository = accountDetailRepository;
+        this.invoiceRepository = invoiceRepository;
     }
 
     @Transactional
@@ -106,28 +106,17 @@ public class AccountService {
         accountDto.setServiceId(service.getId());
         accountDto.setServiceName(service.getServiceName());
 
-        List<AccountDetail> details = accountDetailRepository.fetchDetailsForAccount(account.getAccountNumber());
-        if (!details.isEmpty()) {
-            details.sort(Comparator.comparing(AccountDetail::getYear).thenComparing(AccountDetail::getMonthNumber));
-            Collections.reverse(details);
-            accountDto.setAccountDetails(
-                    details.stream().map(this::convertToAccountDetailDto).collect(Collectors.toList())
-            );
+        Optional<Invoice> invoice = invoiceRepository.findById(account.getCounterNumber());
+        if (invoice.isPresent()) {
+            accountDto.setInvoiceDto(convertToInvoiceDto(invoice.get()));
         } else {
-            accountDto.setAccountDetails(new ArrayList<>());
+            accountDto.setInvoiceDto(null);
         }
-
         return accountDto;
     }
 
-    private AccountDetailDto convertToAccountDetailDto(AccountDetail accountDetail) {
-        AccountDetailDto accountDetailDto = modelMapper.map(accountDetail, AccountDetailDto.class);
-
-        accountDetailDto.setId(accountDetail.getId());
-        accountDetailDto.setMonthNumber(accountDetail.getMonthNumber());
-        accountDetailDto.setYear(accountDetail.getYear());
-        accountDetailDto.setCounter(accountDetail.getCounter());
-
-        return accountDetailDto;
+    private InvoiceDto convertToInvoiceDto(Invoice invoice) {
+        InvoiceDto invoiceDto = modelMapper.map(invoice, InvoiceDto.class);
+        return invoiceDto;
     }
 }

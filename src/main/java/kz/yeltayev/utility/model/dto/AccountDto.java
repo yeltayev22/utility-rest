@@ -18,5 +18,5 @@ public class AccountDto {
     private Long serviceId;
     private String serviceName;
 
-    private List<AccountDetailDto> accountDetails;
+    private InvoiceDto invoiceDto;
 }

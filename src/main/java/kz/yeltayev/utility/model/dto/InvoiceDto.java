@@ -1,5 +1,6 @@
 package kz.yeltayev.utility.model.dto;
 
+import kz.yeltayev.utility.model.entity.Account;
 import lombok.Data;
 
 import java.math.BigDecimal;
