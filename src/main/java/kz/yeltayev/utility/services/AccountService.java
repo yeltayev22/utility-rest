@@ -110,7 +110,11 @@ public class AccountService {
         if (invoice.isPresent()) {
             accountDto.setInvoiceDto(convertToInvoiceDto(invoice.get()));
         } else {
-            accountDto.setInvoiceDto(null);
+            Invoice newInvoice = new Invoice();
+            newInvoice.setCounterNumber(account.getCounterNumber());
+            newInvoice.setYear(Calendar.getInstance().get(Calendar.YEAR));
+            invoiceRepository.save(newInvoice);
+            accountDto.setInvoiceDto(convertToInvoiceDto(newInvoice));
         }
         return accountDto;
     }
