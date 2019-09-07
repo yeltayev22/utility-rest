@@ -24,11 +24,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public List<UserDto> fetchUsers() {
-        return userService.fetchUsers();
-    }
-
     @GetMapping("/users/owner/{owner}")
     public List<UserDto> fetchUsersByOwner(@PathVariable(value = "owner") String owner) {
         return userService.fetchUsersByOwner(owner);

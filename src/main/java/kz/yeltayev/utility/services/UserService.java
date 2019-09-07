@@ -39,12 +39,6 @@ public class UserService {
     }
 
     @Transactional
-    public List<UserDto> fetchUsers() {
-        List<User> users = userRepository.findAll();
-        return convertToListUserDto(users);
-    }
-
-    @Transactional
     public List<UserDto> fetchUsersByOwner(String owner) {
         List<User> users = userRepository.findUsersByOwner(owner);
         return convertToListUserDto(users);

@@ -7,7 +7,6 @@ import kz.yeltayev.utility.model.entity.User;
 import kz.yeltayev.utility.model.request.AccessRequest;
 import kz.yeltayev.utility.repository.AccessRepository;
 import kz.yeltayev.utility.repository.ServiceRepository;
-import kz.yeltayev.utility.repository.StreetRepository;
 import kz.yeltayev.utility.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ public class AccessService {
 
     private AccessRepository accessRepository;
     private UserRepository userRepository;
-    private StreetRepository streetRepository;
     private ServiceRepository serviceRepository;
 
     @Autowired
@@ -34,11 +32,9 @@ public class AccessService {
     @Autowired
     public AccessService(AccessRepository accessRepository,
                          UserRepository userRepository,
-                         StreetRepository streetRepository,
                          ServiceRepository serviceRepository) {
         this.accessRepository = accessRepository;
         this.userRepository = userRepository;
-        this.streetRepository = streetRepository;
         this.serviceRepository = serviceRepository;
     }
 
@@ -70,25 +66,6 @@ public class AccessService {
     }
 
     @Transactional
-    public AccessDto fetchAccessById(Long accessId) throws ResourceNotFoundException {
-        return convertToDto(accessRepository.findById(accessId)
-                .orElseThrow(() -> new ResourceNotFoundException("Access not found for this id : " + accessId)));
-    }
-
-    @Transactional
-    public AccessDto updateAccess(Long accessId, Access accessDetails) throws ResourceNotFoundException {
-        Access access = accessRepository.findById(accessId)
-                .orElseThrow(() -> new ResourceNotFoundException("Access not found for this id : " + accessId));
-
-        access.setUser(accessDetails.getUser());
-//        access.setStreet(accessDetails.getStreet());
-        access.setService(accessDetails.getService());
-
-        Access updatedAccess = accessRepository.save(access);
-        return convertToDto(updatedAccess);
-    }
-
-    @Transactional
     public Map<String, Boolean> deleteAccess(Long accessId) throws ResourceNotFoundException {
         Access access = accessRepository.findById(accessId)
                 .orElseThrow(() -> new ResourceNotFoundException("Access not found for this id : " + accessId));
@@ -116,15 +93,8 @@ public class AccessService {
     private AccessDto convertToDto(Access access) throws ResourceNotFoundException {
         AccessDto accessDto = modelMapper.map(access, AccessDto.class);
 
-        User user = userRepository.findById(access.getUser().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found for this id : " + access.getUser().getId()));
-//        Street street = streetRepository.findById(access.getStreet().getId())
-//                .orElseThrow(() -> new ResourceNotFoundException("Street not found for this id : " + access.getStreet().getId()));
         kz.yeltayev.utility.model.entity.Service service = serviceRepository.findById(access.getService().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Service not found for this id : " + access.getService().getClass()));
-
-//        accessDto.setStreetId(street.getId());
-//        accessDto.setStreetName(street.getStreetName());
 
         accessDto.setServiceId(service.getId());
         accessDto.setServiceName(service.getServiceName());

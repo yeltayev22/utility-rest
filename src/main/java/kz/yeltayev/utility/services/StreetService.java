@@ -31,43 +31,9 @@ public class StreetService {
     }
 
     @Transactional
-    public StreetDto addStreet(Street street) {
-        return convertToDto(streetRepository.save(street));
-    }
-
-    @Transactional
     public List<StreetDto> fetchStreets() {
         List<Street> streets = streetRepository.findAll();
         return convertToListStreetDto(streets);
-    }
-
-    @Transactional
-    public StreetDto fetchStreetById(Long streetId) throws ResourceNotFoundException {
-        return convertToDto(streetRepository.findById(streetId)
-                .orElseThrow(() -> new ResourceNotFoundException("Street not found for this id : " + streetId)));
-    }
-
-    @Transactional
-    public StreetDto updateStreet(Long streetId, Street streetDetails) throws ResourceNotFoundException {
-        Street street = streetRepository.findById(streetId)
-                .orElseThrow(() -> new ResourceNotFoundException("Street not found for this id : " + streetId));
-
-        street.setStreetName(streetDetails.getStreetName());
-        street.setAccounts(streetDetails.getAccounts());
-
-        Street updatedStreet = streetRepository.save(street);
-        return convertToDto(updatedStreet);
-    }
-
-    @Transactional
-    public Map<String, Boolean> deleteStreet(Long streetId) throws ResourceNotFoundException {
-        Street street = streetRepository.findById(streetId)
-                .orElseThrow(() -> new ResourceNotFoundException("Street not found for this id : " + streetId));
-
-        streetRepository.delete(street);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
     }
 
     private List<StreetDto> convertToListStreetDto(List<Street> streets) {

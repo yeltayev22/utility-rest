@@ -27,29 +27,4 @@ public class StreetController {
     public List<StreetDto> getAllStreets() {
         return streetService.fetchStreets();
     }
-
-    @GetMapping("/streets/{id}")
-    public ResponseEntity<StreetDto> fetchStreetById(@PathVariable(value = "id") Long streetId)
-            throws ResourceNotFoundException {
-        StreetDto streetDto = streetService.fetchStreetById(streetId);
-        return ResponseEntity.ok().body(streetDto);
-    }
-
-    @PostMapping("/streets")
-    public StreetDto createStreet(@Valid @RequestBody Street street) {
-        return streetService.addStreet(street);
-    }
-
-    @PutMapping("/streets/{id}")
-    public ResponseEntity<StreetDto> updateStreet(@PathVariable(value = "id") Long streetId,
-                                                 @Valid @RequestBody Street streetDetails) throws ResourceNotFoundException {
-        StreetDto updatedStreet = streetService.updateStreet(streetId, streetDetails);
-        return ResponseEntity.ok(updatedStreet);
-    }
-
-    @DeleteMapping("/streets/{id}")
-    public Map<String, Boolean> deleteStreet(@PathVariable(value = "id") Long streetId)
-            throws ResourceNotFoundException {
-        return streetService.deleteStreet(streetId);
-    }
 }
